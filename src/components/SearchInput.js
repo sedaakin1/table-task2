@@ -44,7 +44,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchInput = ({ stateParam, setState }) => {
+const SearchInput = ({ stateParam, setState, createUser }) => {
   return (
     <Container>
       <div style={{ fontSize: "16px", paddingLeft: "5px", color: "#808080" }}>
@@ -64,7 +64,7 @@ const SearchInput = ({ stateParam, setState }) => {
             />
           </Search>
         </div>
-        <Button size='small' variant='text'>Create User</Button>
+        <Button size='small' variant='text' onClick={createUser}>Create User</Button>
       </div>
     </Container>
   )
