@@ -1,24 +1,70 @@
 import * as React from 'react';
-import { TextField, Button } from '@mui/material';
-import styled from 'styled-components';
+import { TextField, Button, InputBase } from '@mui/material';
+import { styled as styledComp } from 'styled-components';
+import { styled, alpha } from '@mui/material/styles';
+import { AiOutlineSearch } from 'react-icons/ai';
 
-const Container = styled.div`
+const Container = styledComp.div`
 display: flex;
 flex-direction: column;
+gap: 5px;
 width: 100%;
 height: 80px;
-`
+`;
 
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: '20px',
+  backgroundColor: 'white',
+  marginLeft: 0,
+  width: '100%',
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: 'theme.palette.common.white',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '100ch',
+    },
+  },
+}));
 
 const SearchInput = ({ stateParam, setState }) => {
   return (
     <Container>
-      <div>
+      <div style={{ fontSize: "16px", paddingLeft: "5px", color: "#808080" }}>
         Users
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <TextField size='small' value={stateParam} onChange={setState} />
-        <Button size='small' variant='contained'>Create User</Button>
+        <div>
+          <Search>
+            <SearchIconWrapper>
+              <AiOutlineSearch />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Press / to search"
+              inputProps={{ 'aria-label': 'search' }}
+              value={stateParam}
+              onChange={setState}
+            />
+          </Search>
+        </div>
+        <Button size='small' variant='text'>Create User</Button>
       </div>
     </Container>
   )

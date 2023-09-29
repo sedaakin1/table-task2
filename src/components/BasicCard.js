@@ -2,16 +2,17 @@ import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import SignalCellularAltRoundedIcon from '@mui/icons-material/SignalCellularAltRounded';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import LinearProgress from '@mui/material/LinearProgress'
+import LinearProgress from '@mui/material/LinearProgress';
+import { AiFillSignal } from "react-icons/ai";
+
 
 const containerStyle = {
   display: 'flex',
   alignItems: 'center',
-  gap: '20px'
+  gap: '40px'
 };
 
 const cardStyle = {
@@ -34,29 +35,15 @@ const iconStyle = {
 const selectStyle = {
   position: 'absolute',
   top: '10px',
-  right: '10px', 
+  right: '10px',
 };
 
-const peopleList = [
-  { id: 1, lastName: 'Otwell', firstName: 'Taylor', age: 35 },
-  { id: 2, lastName: 'Hemphill', firstName: 'David', age: 42 },
-  { id: 3, lastName: 'Said', firstName: 'Mohamed', age: 45 },
-  { id: 4, lastName: 'Landsman', firstName: 'Ian', age: 16 },
-  { id: 5, lastName: 'Vints', firstName: 'Dries', age: 80 },
-  { id: 6, lastName: 'Archer', firstName: 'Jess', age: 50 },
-  { id: 7, lastName: 'Zaki', firstName: 'Mior', age: 44 },
-];
 
-localStorage.setItem('peopleList', JSON.stringify(peopleList));
 
-const getPeopleListFromLocalStorage = () => {
-  const savedPeopleList = localStorage.getItem('peopleList');
-  return savedPeopleList ? JSON.parse(savedPeopleList) : [];
-};
+export default function BasicCard({data}) {
+  const personCount = data.length;
 
-export default function BasicCard() {
-  const peopleList = getPeopleListFromLocalStorage();
-  const personCount = peopleList.length;
+  console.log(data)
 
   const [selectedDuration, setSelectedDuration] = React.useState('15 days');
 
@@ -65,6 +52,7 @@ export default function BasicCard() {
   };
 
   const progress = 75;
+
 
   return (
     <div style={containerStyle}>
@@ -76,7 +64,7 @@ export default function BasicCard() {
               id="duration-select"
               value={selectedDuration}
               onChange={handleDurationChange}
-              sx={{ fontSize: '13px', color: '#808080', height:'25px' }}
+              sx={{ fontSize: '13px', color: '#808080', height: '25px' }}
             >
               <MenuItem value="15 days">15 Days</MenuItem>
               <MenuItem value="30 days">30 Days</MenuItem>
@@ -84,14 +72,14 @@ export default function BasicCard() {
             </Select>
           </FormControl>
 
-          <Typography gutterBottom variant="h6" component="div" sx={{ color:'#000000b3', fontSize:'18px'}}>
+          <Typography gutterBottom variant="h6" component="div" sx={{ color: '#000000b3', fontSize: '18px' }}>
             Current Users
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div style={iconStyle}>
-                <SignalCellularAltRoundedIcon />
+                <AiFillSignal />
               </div>
               <div style={{ fontSize: '38px' }}>{personCount}</div>
             </div>
@@ -101,41 +89,40 @@ export default function BasicCard() {
 
       <Card sx={cardStyle}>
         <CardContent>
-          <Typography gutterBottom variant="h6" component="div" sx={{ color:'#000000b3', fontSize:'18px'}}>
+          <Typography gutterBottom variant="h6" component="div" sx={{ color: '#000000b3', fontSize: '18px' }}>
             New Users
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            <div style={{fontSize: '38px'}}>75%</div>
+            <div style={{ fontSize: '38px' }}>75%</div>
           </Typography>
           <div>
-          <LinearProgress variant="determinate" value={progress} sx={{ marginTop: '5px'}} />
+            <LinearProgress variant="determinate" value={progress} sx={{ marginTop: '5px' }} />
           </div>
         </CardContent>
       </Card>
 
       <Card sx={cardStyle}>
         <CardContent>
-          <Typography gutterBottom variant="h6" component="div" sx={{ color:'#000000b3', fontSize:'18px'}}>
+          <Typography gutterBottom variant="h6" component="div" sx={{ color: '#000000b3', fontSize: '18px' }}>
             Active Users
           </Typography>
           <Typography variant="body2" color="text.secondary">
-          <div style={{ fontSize: '38px' }}>30</div>
+            <div style={{ fontSize: '38px' }}>30</div>
           </Typography>
         </CardContent>
       </Card>
 
       <Card sx={cardStyle}>
         <CardContent>
-          <Typography gutterBottom variant="h6" component="div" sx={{ color:'#000000b3', fontSize:'18px'}}>
-            Güncel İşlemler
+          <Typography gutterBottom variant="h6" component="div" sx={{ color: '#000000b3', fontSize: '18px' }}>
+            Yaş Dağilimi
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-          <div style={{ fontSize: '38px' }}>A</div>
-          </Typography>
+          
+          
         </CardContent>
       </Card>
 
-    
+
     </div>
   );
 }
