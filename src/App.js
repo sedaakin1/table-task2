@@ -20,8 +20,10 @@ import Table from "./components/Table";
 
 function App() {
 
-  const [rows, setRows] = useState([])
-  const [filteredRows, setFilteredRows] = useState([])
+  const dataGridValue = localStorage.getItem("data") ? JSON.parse(localStorage.getItem("data")) : []
+
+  const [rows, setRows] = useState(dataGridValue)
+  const [filteredRows, setFilteredRows] = useState(dataGridValue)
   const [searchState, setSearchState] = useState("")
 
   const [dialogOpenState, setDialogOpenState] = useState(false)
@@ -88,7 +90,7 @@ function App() {
   const dialogHandleOpen = () => {
     setDialogOpenState(true)
     setDialogDataState({
-      id: Math.floor(Math.random() * 1000).toString(),
+      id: localStorage.getItem("data") ? JSON.parse(localStorage.getItem("data")).length + 1 : 1,
       firstName: "",
       lastName: "",
       age: ""
@@ -141,19 +143,19 @@ function App() {
 
   const getDataFromLocalStorage = () => {
     const data = localStorage.getItem("data")
-    data && setDataToState(JSON.parse(data))
+    const parsedData = JSON.parse(data)
+    if (!parsedData) {
+      localStorage.setItem("data", JSON.stringify([]))
+      return
+    }
+    console.log(parsedData)
+    setDataToState(parsedData)
   }
 
   const setDataToState = (values) => {
     setRows(values)
     setFilteredRows(values)
   }
-
-  useEffect(() => {
-
-    getDataFromLocalStorage()
-
-  }, [])
 
   useEffect(() => {
     const filteredValues = rows.filter((item) => item.firstName.toLowerCase().indexOf(searchState.toLowerCase()) > -1
@@ -163,24 +165,32 @@ function App() {
 
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column", background: "linear-gradient(to bottom, rgba(238,240,250,1) 15%, rgba(222,235,252,1) 50%, rgba(208,227,246,1) 92%)" }}>
+
       <Navbar />
+
       <div style={{
         display: "flex",
         justifyContent: "center"
       }}>
+
         <SidenavLeft />
+
         <div style={{
           display: "flex",
           flexDirection: "column",
         }}>
+
           <div style={{ display: "flex", flexDirection: "column", padding: "20px", gap: "40px" }}>
+
             <BasicCard
               data={[]} />
+
             <SearchInput
               stateParam={searchState}
               setState={handleChange}
               createUser={dialogHandleOpen}
             />
+
             <Table
               rowsParam={filteredRows}
               dialogOpenState={dialogOpenState}
@@ -191,6 +201,7 @@ function App() {
               handleCreateChange={handleCreateChange}
               tableColumns={columns}
             />
+
           </div>
         </div>
       </div>

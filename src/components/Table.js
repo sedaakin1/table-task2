@@ -18,21 +18,21 @@ export default function Table({
   handleCreateChange,
   tableColumns
 }) {
-  const [open, setOpen] = React.useState(false);
-  const [dialogParam, setDialogParam] = useState("");
-  const [dialogData, setDialogData] = useState();
+  // const [open, setOpen] = React.useState(false);
+  // const [dialogParam, setDialogParam] = useState("");
+  // const [dialogData, setDialogData] = useState();
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleDialogOpen = (param, row) => {
-    if (param === "edit") {
-      setDialogData(row)
-    }
-    setDialogParam(param)
-    handleClickOpen()
-  }
+  // const handleDialogOpen = (param, row) => {
+  //   if (param === "edit") {
+  //     setDialogData(row)
+  //   }
+  //   setDialogParam(param)
+  //   handleClickOpen()
+  // }
 
 
 
