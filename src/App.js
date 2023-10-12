@@ -15,9 +15,6 @@ import Table from "./components/Table";
 //   { id: 7, lastName: 'Zaki', firstName: 'Mior', age: 22 },
 // ];
 
-
-
-
 function App() {
 
   const dataGridValue = localStorage.getItem("data") ? JSON.parse(localStorage.getItem("data")) : []
@@ -36,32 +33,22 @@ function App() {
     {
       field: 'firstName',
       headerName: 'First name',
-      width: 150,
+      minWidth: 150,
       flex: 1
     },
     {
       field: 'lastName',
       headerName: 'Last name',
-      width: 150,
+      minWidth: 150,
       flex: 1
     },
     {
       field: 'age',
       headerName: 'Age',
-      width: 120,
+      minWidth: 120,
       flex: 1
     },
-    // {
-    //   field: 'fullName',
-    //   headerName: 'Full name',
-    //   description: 'This column has a value getter and is not sortable.',
-    //   sortable: false,
-    //   width: 200,
-    //   valueGetter: (params) =>
-    //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    //   cellClassName: 'fullNameCell',
-    //   flex: 1
-    // },
+
     {
       field: 'id',
       headerAlign: 'right',
@@ -70,7 +57,7 @@ function App() {
       flex: 1,
       renderCell: (params) =>
         <div style={{ display: 'flex', gap: '5px' }}>
-          <div style={{ color: 'blue', cursor: 'pointer' }} onClick={() => console.log("edit", params.row)}>
+          <div style={{ color: 'blue', cursor: 'pointer' }} onClick={() => handleEditUser(params.row)}>
             Düzenle</div>
           <div>|</div>
           <div style={{ color: 'red', cursor: 'pointer' }} onClick={() => handleDeleteUser(params.row)}>
@@ -78,8 +65,6 @@ function App() {
         </div>
     },
   ];
-
-
 
   // create user
   const dialogHandleClose = () => {
@@ -114,6 +99,17 @@ function App() {
 
   // edit user
 
+  const handleEditUser = (user) => {
+    setDialogOpenState(true)
+    setDialogDataState({
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      age: user.age
+    })
+    setDialogParamState("edit")
+  }
+
   // edit user ---
 
   // delete user
@@ -127,19 +123,6 @@ function App() {
     setSearchState(event.target.value)
   }
 
-  // const updatedLocalStorage = (editedData) => {
-  //   const currentData = getDataFromLocalStorage();
-
-  //   const updatedData = currentData.map((item) => {
-  //     if (item.id === editedData.id) {
-  //       return editedData;
-  //     }
-  //     return item;
-  //   });
-
-  //   localStorage.setItem("data", JSON.stringify(updatedData));
-  //   setRows(updatedData);
-  // }
 
   const getDataFromLocalStorage = () => {
     const data = localStorage.getItem("data")

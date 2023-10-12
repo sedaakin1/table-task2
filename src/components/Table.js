@@ -52,7 +52,7 @@ export default function Table({
 
 
   return (
-    <div style={{ marginBottom: '30px', width: '100%', maxWidth: "700px", height: "300px" }}>
+    <div style={{ marginBottom: '30px', width: '100%', maxWidth: "1300px", height: "470px" }}>
       <DataGrid
         width={"100%"}
         rows={rowsParam}

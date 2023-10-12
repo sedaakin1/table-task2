@@ -17,7 +17,8 @@ const UsersDialog = ({
   dialogData,
   dialogParam,
   handleCreateSubmit,
-  handleCreateChange
+  handleCreateChange,
+  handleDelete
 }) => {
 
   const [editedUserData, setEditedUserData] = useState({ firstName: "", lastName: "", age: "" });
@@ -38,6 +39,8 @@ const UsersDialog = ({
     }
   }, [dialogParam, dialogData]);
 
+
+
   return (
     <Dialog open={open} onClose={handleClose}>
 
@@ -45,22 +48,29 @@ const UsersDialog = ({
 
       <DialogContent>
         {dialogParam === "edit" ? (
-          <form>
-            <div style={{ padding: "5px" }}>
+          <form style={{display: 'flex', flexDirection: 'column', gap: '10px', padding: '5px'}}>
+          <div>
+              <TextField
+                label="id"
+                value={editedUserData.id || ""}
+                disabled = {true}
+              />
+            </div>
+            <div>
               <TextField
                 label="First Name"
                 value={editedUserData.firstName || ""}
                 onChange={(e) => handleFieldChange("firstName", e.target.value)}
               />
             </div>
-            <div style={{ padding: "5px" }}>
+            <div>
               <TextField
                 label="Last Name"
                 value={editedUserData.lastName || ""}
                 onChange={(e) => handleFieldChange("lastName", e.target.value)}
               />
             </div>
-            <div style={{ padding: "5px" }}>
+            <div>
               <TextField
                 label="Age"
                 value={editedUserData.age || ""}
