@@ -16,8 +16,12 @@ export default function Table({
   dialogParamState,
   handleCreateSubmit,
   handleCreateChange,
+  handleEditSubmit,
+  handleEditChange,
+  handleDeleteSubmit,
   tableColumns
 }) {
+
   // const [open, setOpen] = React.useState(false);
   // const [dialogParam, setDialogParam] = useState("");
   // const [dialogData, setDialogData] = useState();
@@ -33,8 +37,6 @@ export default function Table({
   //   setDialogParam(param)
   //   handleClickOpen()
   // }
-
-
 
   // const updatedLocalStorage = (editedData) => {
   //   const currentData = getDataFromLocalStorage();
@@ -71,6 +73,9 @@ export default function Table({
         dialogParam={dialogParamState}
         handleCreateSubmit={handleCreateSubmit}
         handleCreateChange={handleCreateChange}
+        handleEditSubmit={handleEditSubmit}
+        handleEditChange={handleEditChange}
+        handleDeleteSubmit={handleDeleteSubmit}      
       // updatedLocalStorage={updatedLocalStorage}
       />
 

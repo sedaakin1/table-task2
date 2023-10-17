@@ -101,6 +101,14 @@ function App() {
 
   const handleEditUser = (user) => {
     setDialogOpenState(true)
+
+    const localStorageData = localStorage.getItem("data");
+    if (localStorageData) {
+    const data = JSON.parse(localStorageData);
+    const userToEdit = data.find(item => item.id === user.id);
+    
+    if (userToEdit) {
+
     setDialogDataState({
       id: user.id,
       firstName: user.firstName,
@@ -109,14 +117,53 @@ function App() {
     })
     setDialogParamState("edit")
   }
+}
+}
+
+  const handleEditSubmit = () => {
+    const localStorageData = localStorage.getItem("data");
+    if (localStorageData) {
+      const data = JSON.parse(localStorageData);
+      const updatedData = data.map(item => {
+        if (item.id === dialogDataState.id) {
+          return dialogDataState; 
+        }
+        return item;
+      });
+      
+      localStorage.setItem("data", JSON.stringify(updatedData));
+      
+      getDataFromLocalStorage();
+      setDialogOpenState(false);
+    }
+  }
+
+  const handleEditChange = (e) => {
+    if (e.target.name == "id" ) return;
+    setDialogDataState({ ...dialogDataState, [e.target.name]: e.target.value })
+  }
 
   // edit user ---
 
   // delete user
+ 
   const handleDeleteUser = (params) => {
-    console.log(params)
+    // Burada kullanıcıya bir onay iletişimi gösterir ve onaylarsa kullanıcıyı siler
+    if (window.confirm("Kullaniciyi silmek istediğinize emin misiniz?")) {
+      const localStorageData = localStorage.getItem("data");
+      if (localStorageData) {
+        const data = JSON.parse(localStorageData);
+        const updatedData = data.filter(item => item.id !== params.id);
+        localStorage.setItem("data", JSON.stringify(updatedData));
+  
+        // Veriyi güncelle ve iletişimi kapat
+        getDataFromLocalStorage();
+        setDialogOpenState(false);
+      }
+    }
   }
 
+  
   // delete user ---
 
   const handleChange = (event) => {
@@ -182,6 +229,10 @@ function App() {
               dialogParamState={dialogParamState}
               handleCreateSubmit={handleCreateSubmit}
               handleCreateChange={handleCreateChange}
+              handleEditUser={handleEditUser}
+              handleEditSubmit={handleEditSubmit}
+              handleEditChange={handleEditChange}
+              handleDeleteUser={handleDeleteUser}      
               tableColumns={columns}
             />
 
